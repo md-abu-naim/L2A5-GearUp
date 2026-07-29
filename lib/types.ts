@@ -54,3 +54,20 @@ export interface ApiResponse {
     gears: GearItem[];
   }
 }
+
+export interface CategoryItem {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CategoryApiResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    categories: CategoryItem[];
+  };
+}
