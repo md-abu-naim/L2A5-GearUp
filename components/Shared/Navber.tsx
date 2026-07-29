@@ -87,13 +87,9 @@ export default function Navbar() {
                         <Mountain size={20} className="shrink-0" />
                     </div>
 
-                    <Link
-                        href="/"
-                        className="text-xl font-bold tracking-tight"
-                    >
-
+                    <span className="text-xl font-bold tracking-tight">
                         Gear<span className="text-primary">Up</span>
-                    </Link>
+                    </span>
                 </Link>
 
                 {/* Desktop Navigation */}
