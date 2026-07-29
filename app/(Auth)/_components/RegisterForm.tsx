@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2, UserCheck, Store, Lock, Mail, User } from "lucide-react";
-import { RegisterFormValues, RegisterSchema } from "../_actions/FormValidation";
+import { RegisterFormTypes, RegisterValidation } from "../_actions/FormValidation";
 
 export default function RegisterForm() {
     const router = useRouter();
@@ -20,8 +20,8 @@ export default function RegisterForm() {
         setValue,
         watch,
         formState: { errors },
-    } = useForm<RegisterFormValues>({
-        resolver: zodResolver(RegisterSchema),
+    } = useForm<RegisterFormTypes>({
+        resolver: zodResolver(RegisterValidation),
         defaultValues: {
             name: "",
             email: "",
@@ -34,7 +34,7 @@ export default function RegisterForm() {
     const selectedRole = watch("role");
 
 
-    const onSubmit = async (data: RegisterFormValues) => {
+    const onSubmit = async (data: RegisterFormTypes) => {
         setIsLoading(true);
 
         const payload = {
@@ -43,8 +43,6 @@ export default function RegisterForm() {
             password: data.password,
             role: data.role,
         }
-
-        console.log(payload, process.env.NEXT_PUBLIC_BACKEND_URL);
 
         try {
           const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
@@ -213,7 +211,7 @@ export default function RegisterForm() {
             <p className="text-center text-sm text-gray-500">
                 Already have an account?{" "}
                 <Link
-                    href="/auth/login"
+                    href="/login"
                     className="font-semibold text-emerald-600 hover:underline"
                 >
                     Sign In
