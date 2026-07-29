@@ -2,13 +2,15 @@ import Navbar from "@/components/Shared/Navber";
 import { Mountain, ShieldCheck, Zap, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { getMe } from "@/services/getMe";
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = async({ children }: { children: React.ReactNode }) => {
+    const user = await getMe()
     return (
         <div className="min-h-screen flex flex-col justify-between">
-            <Navbar />
+            <Navbar user={user} />
 
-            <main className="relative flex-1 flex items-center justify-center overflow-hidden bg-background">
+            <div className="relative flex-1 flex items-center justify-center overflow-hidden bg-background">
                 <div className="absolute inset-0 -z-10 bg-linear-to-br from-dark:from-blue-950/20 via-background to-background dark:from-blue-950/20" />
                 <div className="container mx-auto px-4 max-w-6xl">
                     <div className="grid items-center gap-12 lg:grid-cols-12">
@@ -68,7 +70,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     );
 };

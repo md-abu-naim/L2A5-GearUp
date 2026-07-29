@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Menu, User, LogOut, Settings, LayoutDashboard, Mountain, PackageCheck } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -12,15 +11,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import {
-    Sheet,
-    SheetContent,
-    SheetTrigger,
-} from "@/components/ui/sheet";
-
+import { Sheet, SheetContent, SheetTrigger, } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { IUSER } from "@/lib/types";
 
 
 const navItems = [
@@ -46,7 +40,6 @@ const navItems = [
     },
 ];
 
-
 const userMenuItems = [
     {
         title: "Dashboard",
@@ -70,9 +63,37 @@ const userMenuItems = [
     },
 ];
 
+type NavberProps = {
+    user: IUSER
+}
 
-export default function Navbar() {
+export default function Navbar({ user }: NavberProps) {
     const pathname = usePathname()
+    const router = useRouter()
+
+    const handleUserMenuAction = async (action: string) => {
+        console.log(`User Menu Action: ${action}`);
+
+        if (action === "/dashboard") {
+            if (user.data.user.role === "CUSTOMER") {
+                router.push("/dashboard")
+            }
+            else if (user.data.user.role === "PROVIDER") {
+                router.push("/provider-dashboard")
+            }
+            else if (user.data.user.role === "ADMIN") {
+                router.push("/admin-dashboard")
+            }
+
+            return;
+        }
+
+        // if (action === 'logout') {
+        //   await logout()
+        //   setLogout(true)
+        // }
+    }
+
     return (
         <div className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -112,90 +133,93 @@ export default function Navbar() {
                 <div className="flex items-center gap-3">
 
                     {/* User Dropdown */}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                className="flex items-center gap-3 rounded-full px-2 hover:bg-muted"
-                            >
-                                <Avatar className="h-9 w-9">
-                                    <AvatarImage src="/avatar.png" />
-                                    <AvatarFallback>
-                                        NA
-                                    </AvatarFallback>
-                                </Avatar>
-
-                                <div className="hidden md:flex flex-col items-start">
-                                    <span className="text-sm font-medium">
-                                        Mohammad Abu Naim
-                                    </span>
-
-                                    <span className="text-xs font-semibold text-gray-500">
-                                        Customer
-                                    </span>
-                                </div>
-
-                            </Button>
-                        </DropdownMenuTrigger>
-
-
-                        <DropdownMenuContent
-                            align="end"
-                            className="w-56"
-                        >
-
-                            <DropdownMenuLabel className="font-normal">
-                                <div className="flex flex-col space-y-2">
-                                    <p className="text-sm font-medium leading-none pl-1">
-                                        Mohammad Abu Naim
-                                    </p>
-
-                                    <span className="w-fit rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
-                                        Customer Account
-                                    </span>
-                                </div>
-                            </DropdownMenuLabel>
-
-                            <DropdownMenuSeparator />
-
-
-                            {userMenuItems.map((item) => {
-                                const Icon = item.icon;
-
-                                return (
-                                    <DropdownMenuItem
-                                        key={item.href}
-                                        asChild
+                    {
+                        user.success ? (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        className="flex items-center gap-3 rounded-full px-2 hover:bg-muted"
                                     >
-                                        <Link
-                                            href={item.href}
-                                            className="flex items-center gap-2 cursor-pointer"
+                                        <Avatar className="h-9 w-9">
+                                            <AvatarImage src={`${user.data.user.profileImage} || /avatar.png`} />
+                                            <AvatarFallback>
+                                                NA
+                                            </AvatarFallback>
+                                        </Avatar>
+
+                                        <div className="hidden md:flex flex-col items-start">
+                                            <span className="text-sm font-medium">
+                                                {user.data.user.name}
+                                            </span>
+
+                                            <span className="text-xs font-semibold text-gray-500">
+                                                {user.data.user.role}
+                                            </span>
+                                        </div>
+
+                                    </Button>
+                                </DropdownMenuTrigger>
+
+
+                                <DropdownMenuContent
+                                    align="end"
+                                    className="w-56"
+                                >
+
+                                    <DropdownMenuLabel className="font-normal">
+                                        <div className="flex flex-col space-y-2">
+                                            <p className="text-sm font-medium leading-none pl-1">
+                                                {user.data.user.name}
+                                            </p>
+
+                                            <span className="w-fit rounded-full bg-blue-100 px-2.5 py-1 font-medium text-blue-600 uppercase">
+                                                {user.data.user.role} Account
+                                            </span>
+                                        </div>
+                                    </DropdownMenuLabel>
+
+                                    <DropdownMenuSeparator />
+
+
+                                    {userMenuItems.map((item) => (
+                                        <DropdownMenuItem onClick={() => handleUserMenuAction(item.href)}
+                                            key={item.href} asChild
                                         >
-                                            <Icon className="h-4 w-4" />
+                                            <Link
+                                                href={item.href}
+                                                className="flex items-center gap-2 cursor-pointer"
+                                            >
+                                                <item.icon className="h-4 w-4" />
 
-                                            {item.title}
-                                        </Link>
+                                                {item.title}
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+
+
+                                    <DropdownMenuSeparator />
+
+
+                                    <DropdownMenuItem onClick={async () => { await handleUserMenuAction('logout')}}
+                                        className="cursor-pointer text-destructive"
+                                    >
+                                        <LogOut className="mr-2 h-4 w-4" />
+
+                                        Logout
                                     </DropdownMenuItem>
-                                );
-                            })}
 
 
-                            <DropdownMenuSeparator />
+                                </DropdownMenuContent>
 
-
-                            <DropdownMenuItem
-                                className="cursor-pointer text-destructive"
-                            >
-                                <LogOut className="mr-2 h-4 w-4" />
-
-                                Logout
-                            </DropdownMenuItem>
-
-
-                        </DropdownMenuContent>
-
-                    </DropdownMenu>
-
+                            </DropdownMenu>
+                        ) :
+                            <Link href={'/login'} >
+                                <Button className="px-4 text-md">
+                                    Login
+                                </Button>
+                            </Link>
+                    }
 
 
                     {/* Mobile Menu */}

@@ -1,9 +1,11 @@
 import Navbar from "@/components/Shared/Navber"
+import { getMe } from "@/services/getMe"
 
 const DashboardLayout = async({ children }: { children: React.ReactNode }) => {
+    const user = await getMe()
     return (
         <div>
-            <Navbar />
+            <Navbar user={user} />
             {children}
         </div>
     )

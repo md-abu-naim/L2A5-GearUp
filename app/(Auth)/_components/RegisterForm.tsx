@@ -9,6 +9,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2, UserCheck, Store, Lock, Mail, User } from "lucide-react";
 import { RegisterFormTypes, RegisterValidation } from "../_actions/FormValidation";
+import { createUser } from "../_actions/AuthActions";
 
 export default function RegisterForm() {
     const router = useRouter();
@@ -36,30 +37,11 @@ export default function RegisterForm() {
 
     const onSubmit = async (data: RegisterFormTypes) => {
         setIsLoading(true);
-
-        const payload = {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            role: data.role,
-        }
-
+        
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-
-          const result = await res.json();
-          console.log(result);
-
-          if (!res.ok) {
-            throw new Error(result.message || "Registration failed. Try again.");
-          }
+            await createUser(data)
 
           toast.success("Account created successfully! Please log in.");
-          router.push("/login");
         } catch (error: any) {
           toast.error(error.message || "Something went wrong during registration.");
         } finally {
