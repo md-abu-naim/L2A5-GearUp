@@ -38,7 +38,6 @@ export async function proxy(request: NextRequest) {
         }
     }
 
-    console.log(decodedAccessToken);
 
     if (!decodedAccessToken?.success) {
         cookieStore.delete('accessToken')

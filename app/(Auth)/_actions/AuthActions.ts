@@ -19,7 +19,6 @@ export const createUser = async (data: RegisterFormTypes) => {
     });
 
     const result = await res.json();
-    console.log(result);
 
     if (!res.ok) {
         throw new Error(result.message || "Registration failed. Try again.");

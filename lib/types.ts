@@ -22,3 +22,35 @@ type User = {
   createdAt: string;
   updatedAt: string;
 };
+
+
+export interface Provider {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface GearItem {
+  id: string;
+  title: string;
+  description: string;
+  brand: string;
+  pricePerDay: number;
+  stock: number;
+  status: "AVAILABLE" | "OUT_OF_STOCK" | string;
+  image: string;
+  providerId: string;
+  category: string;
+  createdAt: string;
+  updatedAt: string;
+  provider: Provider;
+}
+
+export interface ApiResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    gears: GearItem[];
+  }
+}
