@@ -15,6 +15,8 @@ import { Sheet, SheetContent, SheetTrigger, } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePathname, useRouter } from "next/navigation";
 import { IUSER } from "@/lib/types";
+import { logout } from "@/services/logout";
+import { toast } from "sonner";
 
 
 const navItems = [
@@ -88,10 +90,10 @@ export default function Navbar({ user }: NavberProps) {
             return;
         }
 
-        // if (action === 'logout') {
-        //   await logout()
-        //   setLogout(true)
-        // }
+        if (action === 'logout') {
+          await logout()
+          toast.success('User Logout Successfully')
+        }
     }
 
     return (
