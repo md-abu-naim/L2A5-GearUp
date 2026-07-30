@@ -14,7 +14,7 @@ const GearCard = ({ item }: GearCardProps) => {
     const { image, title, category, status, brand, provider, stock, pricePerDay, description } = item || {}
 
     return (
-        <Card className="group overflow-hidden rounded-3xl border border-border/60 bg-card/80 shadow-lg hover:shadow-2xl hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
+        <Card title="Click for Details" className="group overflow-hidden rounded-3xl border border-border/60 bg-card/80 shadow-lg hover:shadow-2xl hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
             <div className="relative h-52 w-full overflow-hidden bg-muted">
                 <Image
                     src={image || "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=800"}

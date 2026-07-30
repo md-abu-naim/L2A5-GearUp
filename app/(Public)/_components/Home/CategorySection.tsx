@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { Layers, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { getCategories } from "../../_actions/Home/getCategories";
+import { getCategories } from "../../_actions/getCategories";
 import { CategoryItem } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 export default async function CategorySection() {
   const categories: CategoryItem[] = await getCategories();
 
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden bg-background">
+    <section className="relative overflow-hidden bg-background">
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-emerald-50/20 via-background to-background" />
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
