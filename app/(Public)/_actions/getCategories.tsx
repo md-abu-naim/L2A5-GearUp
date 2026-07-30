@@ -2,7 +2,11 @@
 
 export async function getCategories() {
     try {
-        const res = await fetch(`${process.env.BACKEND_URL}/categories`)
+        const res = await fetch(`${process.env.BACKEND_URL}/categories`, {
+            next: {
+                revalidate: 0
+            }
+        })
         const categories = await res.json()
 
         return categories?.data?.categories.slice(0, 6) || [];

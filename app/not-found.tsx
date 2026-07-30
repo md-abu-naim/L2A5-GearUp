@@ -46,7 +46,7 @@ export default function NotFound() {
                         variant="outline"
                         className="w-full sm:w-auto rounded-xl border-border hover:bg-muted font-medium px-6 py-2.5 text-foreground"
                     >
-                        <Link href="/items">
+                        <Link href="/gears">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Explore Gear
                         </Link>

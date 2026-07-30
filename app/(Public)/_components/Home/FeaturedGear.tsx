@@ -51,7 +51,7 @@ export default async function FeaturedGearSection() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                         {
-                            gears.map(gear => <Link href={gear.id} key={gear.id}><GearCard item={gear} /></Link>)
+                            gears.map(gear => <Link href={`/gears/${gear.id}`} key={gear.id}><GearCard item={gear} /></Link>)
                         }
                     </div>
                 )}
