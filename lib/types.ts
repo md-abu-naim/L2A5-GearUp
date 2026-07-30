@@ -71,3 +71,12 @@ export interface CategoryApiResponse {
     categories: CategoryItem[];
   };
 }
+
+export interface GearQuery {
+  search?: string;
+  category?: string;
+  brand?: string;
+  availability?: string;
+  minPrice?: string;
+  maxPrice?: string;
+}

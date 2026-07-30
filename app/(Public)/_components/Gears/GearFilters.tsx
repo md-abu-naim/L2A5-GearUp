@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -16,16 +16,47 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { CategoryItem, GearItem } from "@/lib/types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type GearFiltersProps = {
     categories: CategoryItem[];
     gears: GearItem[];
+    gearsBrand: GearItem[];
 };
 
-export default function GearFilters({ categories, gears }: GearFiltersProps) {
-    const [maxPrice, setMaxPrice] = useState(5000);
+export default function GearFilters({ categories, gears, gearsBrand }: GearFiltersProps) {
+    const searchParams = useSearchParams()
+    const [maxPrice, setMaxPrice] = useState(500);
+    const [search, setSearch] = useState(searchParams.get('search') || "")
+    const router = useRouter()
 
-    const brands = [...new Set(gears.map((gear) => gear.brand))];
+    const setFilter = (key: string, value: string) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (value === "all" || value === "") {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+
+        router.push(`/gears?${params.toString()}`);
+    };
+
+    const debouncedReference = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    const handleSearch = (value: string) => {
+        setSearch(value);
+
+        if (debouncedReference.current) {
+            clearTimeout(debouncedReference.current);
+        }
+
+        debouncedReference.current = setTimeout(() => {
+            setFilter("search", value);
+        }, 500);
+    };
+
+    const brands = [...new Set(gearsBrand.map((gear) => gear.brand))];
 
     return (
         <aside className="space-y-6 border border-border/60 p-5 rounded-2xl bg-card h-fit">
@@ -34,7 +65,7 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
                     <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
                     Filters
                 </h2>
-                <Button
+                <Button onClick={() => router.push("/gears")}
                     variant="ghost"
                     size="sm"
                     className="text-xs bg-emerald-300 hover:bg-emerald-500 hover:text-white"
@@ -50,7 +81,8 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
                 </Label>
                 <div className="relative">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
+                    <Input value={search}
+                        onChange={(e) => handleSearch(e.target.value)}
                         placeholder="Search gear..."
                         className="pl-9 h-9 text-xs rounded-xl"
                     />
@@ -62,7 +94,7 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
                 <Label className="text-xs font-semibold text-muted-foreground uppercase">
                     Category
                 </Label>
-                <Select defaultValue="all">
+                <Select defaultValue="all" onValueChange={(value) => setFilter("category", value)}>
                     <SelectTrigger className="w-full h-9 text-xs rounded-xl">
                         <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
@@ -82,7 +114,7 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
                 <Label className="text-xs font-semibold text-muted-foreground uppercase">
                     Brand
                 </Label>
-                <Select defaultValue="all">
+                <Select defaultValue="all" onValueChange={(value) => setFilter("brand", value)}>
                     <SelectTrigger className="w-full h-9 text-xs rounded-xl">
                         <SelectValue placeholder="All Brands" />
                     </SelectTrigger>
@@ -107,7 +139,7 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
                         ${maxPrice}
                     </span>
                 </div>
-                <Slider
+                <Slider onValueCommit={(value) => setFilter("maxPrice", value[0].toString())}
                     value={[maxPrice]}
                     max={500}
                     step={10}
@@ -117,7 +149,7 @@ export default function GearFilters({ categories, gears }: GearFiltersProps) {
 
             {/* Availability Filter */}
             <div className="flex items-center space-x-2 pt-2">
-                <Checkbox id="available" />
+                <Checkbox id="available" onCheckedChange={(checked) => setFilter('availability', checked ? 'AVAILABLE' : "")} />
                 <Label
                     htmlFor="available"
                     className="text-xs font-medium cursor-pointer"

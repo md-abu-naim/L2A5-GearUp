@@ -33,11 +33,11 @@ const GearCard = ({ item }: GearCardProps) => {
                 <div className="absolute top-3 right-3">
                     {status === "OUT_OF_STOCK" ? (
                         <Badge variant="destructive" className="rounded-lg text-[11px] font-semibold px-2.5 py-1">
-                            Out of Stock
+                            {status}
                         </Badge>
                     ) : (
                         <Badge className="bg-emerald-600 text-white rounded-lg text-[11px] font-semibold px-2.5 py-1">
-                            In Stock ({stock})
+                            {status} ({stock})
                         </Badge>
                     )}
                 </div>
