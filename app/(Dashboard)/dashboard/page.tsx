@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getMyRentals } from "../_actions/CustomerDashboard/getMyRentals";
+import { getMyRentals } from "../_actions/getMyRentals";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { IRental } from "@/lib/types";
@@ -75,7 +75,7 @@ export default async function CustomerDashboardPage() {
           asChild
           className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs h-10 w-fit shadow-md shadow-emerald-600/10"
         >
-          <Link href="/gear">
+          <Link href="/gears">
             <ShoppingBag className="w-4 h-4 mr-2" /> Rent New Gear
           </Link>
         </Button>

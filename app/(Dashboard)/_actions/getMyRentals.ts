@@ -16,7 +16,7 @@ export const getMyRentals = async () => {
         })
         const rentals = await res.json()
 
-        return rentals?.data?.rentals.slice(0, 6) || [];
+        return rentals?.data?.rentals|| [];
     } catch (error) {
         console.error("Error fetching gears:", error);
         return [];

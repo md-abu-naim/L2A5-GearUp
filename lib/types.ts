@@ -105,4 +105,5 @@ export interface IRental {
   status: | "PLACED" | "CONFIRMED" | "PAID" | "PICKED_UP" | "RETURNED" | "CANCELLED";
   createdAt: string;
   updatedAt: string;
+  gearItem: GearItem
 }
