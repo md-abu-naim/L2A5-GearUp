@@ -1,3 +1,10 @@
+import { LucideProps } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
+
+export type NavbarProps = {
+  user: IUSER
+}
+
 export type IUSER = {
   success: boolean;
   statusCode: number;
@@ -79,4 +86,10 @@ export interface GearQuery {
   availability?: string;
   minPrice?: string;
   maxPrice?: string;
+}
+
+export type ISidebarItem = {
+  label: string,
+  href: string,
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }

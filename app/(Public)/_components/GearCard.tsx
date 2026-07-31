@@ -11,7 +11,7 @@ interface GearCardProps {
 }
 
 const GearCard = ({ item }: GearCardProps) => {
-    const { image, title, category, status, brand, provider, stock, pricePerDay, description } = item || {}
+    const {id, image, title, category, status, brand, provider, stock, pricePerDay, description } = item || {}
 
     return (
         <Card title="Click for Details" className="group overflow-hidden rounded-3xl border border-border/60 bg-card/80 shadow-lg hover:shadow-2xl hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
@@ -78,9 +78,8 @@ const GearCard = ({ item }: GearCardProps) => {
                     size="sm"
                     className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 shadow-md shadow-emerald-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    <Link href={`/${item.id}`} className="flex items-center gap-1">
-                        {status === "OUT_OF_STOCK" ? "Unavailable" : "Rent Now"}
-                        {status !== "OUT_OF_STOCK" && <ArrowRight className="w-4 h-4 ml-1" />}
+                    <Link href={`/gears/${id}`} className="flex items-center gap-1">
+                        View Details <ArrowRight className="w-4 h-4 ml-1" />
                     </Link>
                 </Button>
             </CardFooter>
