@@ -43,7 +43,7 @@ export const isAccessTokenExists = async () => {
     }
 
     const decodedAccessToken = accessToken ? await verifyToken(accessToken, process.env.JWT_ACCESS_SECRET as string) : null
-    const decodedRefreshToken = refreshToken ? await verifyToken(refreshToken, process.env.JWT_ACCESS_SECRET as string) : null
+    const decodedRefreshToken = refreshToken ? await verifyToken(refreshToken, process.env.JWT_REFRESH_SECRET as string) : null
 
     if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
         const result = await getNewAccessToken()

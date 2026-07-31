@@ -93,3 +93,16 @@ export type ISidebarItem = {
   href: string,
   icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }
+
+export interface IRental {
+  id: string;
+  customerId: string;
+  gearItemId: string;
+  quantity: number;
+  startDate: string;
+  endDate: string;
+  totalPrice: number;
+  status: | "PLACED" | "CONFIRMED" | "PAID" | "PICKED_UP" | "RETURNED" | "CANCELLED";
+  createdAt: string;
+  updatedAt: string;
+}

@@ -4,14 +4,17 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2, Lock, Mail } from "lucide-react";
 import { LoginFormTypes, LoginValidation } from "../_actions/FormValidation";
 import { loginUser } from "../_actions/AuthActions";
 
-export default function LoginForm() {
+type FormProps = {
+  redirectTo?: string;
+};
+
+export default function LoginForm({ redirectTo }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -30,7 +33,7 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      await loginUser(data) 
+      await loginUser(data, redirectTo as string) 
       toast.success("Welcome back! Logging in...");
     } catch (error: any) {
       toast.error(error.message || "Something went wrong during login.");

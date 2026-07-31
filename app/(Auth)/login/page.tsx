@@ -1,8 +1,15 @@
 import LoginForm from "../_components/LoginForm"
 
-const Login = () => {
+type LoginProps = {
+  searchParams: Promise<{
+    redirectTo?: string;
+  }>;
+};
+
+const Login = async({ searchParams }: LoginProps) => {
+  const params = await searchParams;
   return (
-    <LoginForm />
+    <LoginForm redirectTo={params.redirectTo} />
   )
 }
 

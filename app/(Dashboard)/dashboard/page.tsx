@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   ShoppingBag,
   CreditCard,
@@ -9,7 +8,6 @@ import {
   ArrowRight,
   TrendingUp,
 } from "lucide-react";
-
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,50 +19,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-// --- Static Mock Data ---
-const MOCK_STATS = {
-  totalRentals: 8,
-  activeRentals: 2,
-  completedRentals: 5,
-  totalSpent: 1250,
-};
-
-const MOCK_RECENT_RENTALS = [
-  {
-    id: "RENT-9021",
-    gearName: "Exclusive Mountain Bike",
-    category: "Bike",
-    startDate: "2026-08-01",
-    endDate: "2026-08-05",
-    totalAmount: 500,
-    status: "APPROVED",
-    image:
-      "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=200",
-  },
-  {
-    id: "RENT-8834",
-    gearName: "2-Person Waterproof Tent",
-    category: "Camping",
-    startDate: "2026-07-20",
-    endDate: "2026-07-23",
-    totalAmount: 120,
-    status: "COMPLETED",
-    image:
-      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=200",
-  },
-  {
-    id: "RENT-8120",
-    gearName: "Pro Hiking Backpack 50L",
-    category: "Trekking",
-    startDate: "2026-07-10",
-    endDate: "2026-07-12",
-    totalAmount: 60,
-    status: "PENDING",
-    image:
-      "https://images.unsplash.com/photo-1622260614153-03223fb72052?auto=format&fit=crop&q=80&w=200",
-  },
-];
+import { getMyRentals } from "../_actions/CustomerDashboard/getMyRentals";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { IRental } from "@/lib/types";
 
 const MOCK_PAYMENTS = [
   {
@@ -93,43 +51,17 @@ const MOCK_PAYMENTS = [
   },
 ];
 
-// Helper for Status Badge Styling
-const getStatusBadge = (status: string) => {
-  switch (status) {
-    case "APPROVED":
-    case "SUCCESS":
-    case "COMPLETED":
-      return (
-        <Badge className="bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 border-emerald-500/20 font-semibold gap-1 text-[11px] rounded-lg">
-          <CheckCircle2 className="w-3 h-3" /> {status}
-        </Badge>
-      );
-    case "PENDING":
-      return (
-        <Badge className="bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 border-amber-500/20 font-semibold gap-1 text-[11px] rounded-lg">
-          <Clock className="w-3 h-3" /> PENDING
-        </Badge>
-      );
-    case "CANCELLED":
-    case "FAILED":
-      return (
-        <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20 border-destructive/20 font-semibold gap-1 text-[11px] rounded-lg">
-          <XCircle className="w-3 h-3" /> {status}
-        </Badge>
-      );
-    default:
-      return (
-        <Badge variant="outline" className="text-[11px] rounded-lg">
-          {status}
-        </Badge>
-      );
-  }
-};
+export default async function CustomerDashboardPage() {
+  const rentals: IRental[] = await getMyRentals()
 
-export default function CustomerDashboardPage() {
+  const activeRentals = rentals.filter((r) => ["CONFIRMED", "PAID", "PICKED_UP"].includes(r.status)).length;
+
+  const completedRentals = rentals.filter((r) => r.status === "RETURNED").length;
+
+  const totalSpent = rentals.filter((r) => r.status !== "CANCELLED").reduce((acc, curr) => acc + curr.totalPrice, 0);
+
   return (
     <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-8 space-y-8">
-      {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
@@ -149,7 +81,6 @@ export default function CustomerDashboardPage() {
         </Button>
       </div>
 
-      {/* Stats Cards Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <Card className="rounded-2xl border-border/60 bg-card p-5 shadow-xs hover:border-emerald-500/30 transition-all">
           <div className="flex items-center justify-between">
@@ -162,7 +93,7 @@ export default function CustomerDashboardPage() {
           </div>
           <div className="mt-3">
             <p className="text-2xl font-black text-foreground">
-              {MOCK_STATS.totalRentals}
+              {rentals?.length}
             </p>
             <p className="text-[11px] text-muted-foreground mt-1">
               All time rental orders
@@ -181,7 +112,7 @@ export default function CustomerDashboardPage() {
           </div>
           <div className="mt-3">
             <p className="text-2xl font-black text-foreground">
-              {MOCK_STATS.activeRentals}
+              {activeRentals}
             </p>
             <p className="text-[11px] text-muted-foreground mt-1">
               Currently in use / approved
@@ -200,7 +131,7 @@ export default function CustomerDashboardPage() {
           </div>
           <div className="mt-3">
             <p className="text-2xl font-black text-foreground">
-              {MOCK_STATS.completedRentals}
+              {completedRentals}
             </p>
             <p className="text-[11px] text-muted-foreground mt-1">
               Successfully returned
@@ -219,7 +150,7 @@ export default function CustomerDashboardPage() {
           </div>
           <div className="mt-3">
             <p className="text-2xl font-black text-foreground">
-              ${MOCK_STATS.totalSpent}
+              ${totalSpent}
             </p>
             <p className="text-[11px] text-emerald-600 font-medium mt-1 flex items-center gap-1">
               <TrendingUp className="w-3 h-3" /> Life-time expenditure
@@ -228,14 +159,12 @@ export default function CustomerDashboardPage() {
         </Card>
       </div>
 
-      {/* Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Side: Order History (8 cols) */}
         <div className="lg:col-span-8 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-foreground">Order History</h2>
             <Button variant="link" size="sm" asChild className="text-emerald-600 text-xs font-semibold">
-              <Link href="/dashboard/customer/rentals">
+              <Link href="/dashboard/my-rentals">
                 View All <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Link>
             </Button>
@@ -252,35 +181,54 @@ export default function CustomerDashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {MOCK_RECENT_RENTALS.map((rental) => (
+                {rentals.map((rental) => (
                   <TableRow key={rental.id} className="hover:bg-muted/30">
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-muted shrink-0">
-                          <Image
-                            src={rental.image}
-                            alt={rental.gearName}
-                            fill
-                            className="object-cover"
-                          />
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 font-bold text-xs">
+                          Qty: {rental.quantity}
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground line-clamp-1">
-                            {rental.gearName}
+                            Gear ID: {rental.gearItemId.slice(0, 8)}...
                           </p>
-                          <span className="text-[10px] text-muted-foreground uppercase">
-                            {rental.id}
+                          <span className="text-[10px] bg-muted px-1.5 py-0.5 rounded font-mono text-muted-foreground uppercase">
+                            Order #{rental.id.slice(0, 8)}
                           </span>
                         </div>
                       </div>
                     </TableCell>
+
                     <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
-                      {rental.startDate} <span className="mx-0.5">→</span> {rental.endDate}
+                      {format(new Date(rental.startDate), "MMM dd, yyyy")}
+                      <span className="mx-1 text-emerald-600 font-bold">→</span>
+                      {format(new Date(rental.endDate), "MMM dd, yyyy")}
                     </TableCell>
-                    <TableCell className="text-xs font-bold text-foreground">
-                      ${rental.totalAmount}
+
+                    <TableCell className="text-xs font-black text-foreground">
+                      ${rental.totalPrice.toLocaleString()}
                     </TableCell>
-                    <TableCell>{getStatusBadge(rental.status)}</TableCell>
+
+                    <TableCell>
+                      <Badge
+                        className={
+                          rental.status === "PLACED"
+                            ? "bg-yellow-500/10 text-yellow-700 border-yellow-500/20"
+                            : rental.status === "CONFIRMED"
+                              ? "bg-blue-500/10 text-blue-700 border-blue-500/20"
+                              : rental.status === "PAID"
+                                ? "bg-green-500/10 text-green-700 border-green-500/20"
+                                : rental.status === "PICKED_UP"
+                                  ? "bg-purple-500/10 text-purple-700 border-purple-500/20"
+                                  : rental.status === "RETURNED"
+                                    ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+                                    : "bg-red-500/10 text-red-700 border-red-500/20"
+                        }
+                      >
+                        <Clock className="w-3 h-3 mr-1" />
+                        {rental.status}
+                      </Badge>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -288,12 +236,12 @@ export default function CustomerDashboardPage() {
           </Card>
         </div>
 
-        {/* Right Side: Payment History (4 cols) */}
+        {/* Right Side: Payment History */}
         <div className="lg:col-span-4 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-foreground">Payment History</h2>
             <Button variant="link" size="sm" asChild className="text-emerald-600 text-xs font-semibold">
-              <Link href="/dashboard/customer/payments">
+              <Link href="/dashboard/payments">
                 View All <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Link>
             </Button>
@@ -318,7 +266,21 @@ export default function CustomerDashboardPage() {
                     ID: {payment.id} • {payment.date}
                   </p>
                 </div>
-                <div>{getStatusBadge(payment.status)}</div>
+                <div>
+                  <Badge
+                    className={cn(
+                      "font-semibold gap-1 text-[11px] rounded-lg border shadow-none transition-colors",
+                      payment.status === "COMPLETED" && "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 border-emerald-500/20",
+                      payment.status === "PENDING" && "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 border-amber-500/20",
+                      payment.status === "FAILED" && "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border-rose-500/20"
+                    )}
+                  >
+                    {payment.status === "COMPLETED" && <CheckCircle2 className="w-3 h-3" />}
+                    {payment.status === "PENDING" && <Clock className="w-3 h-3" />}
+                    {payment.status === "FAILED" && <XCircle className="w-3 h-3" />}
+                    {payment.status}
+                  </Badge>
+                </div>
               </div>
             ))}
           </Card>

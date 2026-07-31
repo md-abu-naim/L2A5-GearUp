@@ -26,6 +26,7 @@ export const createUser = async (data: RegisterFormTypes) => {
 
     if (result.success) {
         const cookieStore = await cookies()
+        console.log(cookieStore);
 
         cookieStore.set("accessToken", result.data.accessToken, {
             httpOnly: true,
@@ -42,10 +43,11 @@ export const createUser = async (data: RegisterFormTypes) => {
         redirect('/')
     }
 
+
     return result
 }
 
-export const loginUser = async (data: LoginFormTypes) => {
+export const loginUser = async (data: LoginFormTypes, redirectTo: string) => {
     const payload = {
         email: data.email,
         password: data.password
@@ -68,26 +70,30 @@ export const loginUser = async (data: LoginFormTypes) => {
 
         cookieStore.set("accessToken", result.data.accessToken, {
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
             maxAge: 60 * 60 * 24,
-            sameSite: 'lax'
-        })
+        });
 
         cookieStore.set("refreshToken", result.data.refreshToken, {
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
             maxAge: 60 * 60 * 24 * 7,
-            sameSite: 'lax'
-        })
+        });
 
         const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload
 
-        // if(redirectTo && typeof redirectTo === 'string' && redirectTo.startsWith('/') && !redirectTo.startsWith('//')){
-        //     redirect(redirectTo)
-        // }
+        if(redirectTo && typeof redirectTo === 'string' && redirectTo.startsWith('/') && !redirectTo.startsWith('//')){
+            redirect(redirectTo)
+        }
 
         if (decodedToken.role === 'CUSTOMER') {
-            redirect('')
+            redirect('/dashboard')
         } else if (decodedToken.role === 'PROVIDER') {
-            redirect('/')
+            redirect('/provider-dashboard')
         } else if (decodedToken.role === 'ADMIN') {
             redirect('/admin-dashboard')
         }
