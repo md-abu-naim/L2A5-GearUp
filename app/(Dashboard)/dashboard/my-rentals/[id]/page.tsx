@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { format, differenceInDays } from "date-fns";
@@ -24,6 +22,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { getRentalById } from "@/app/(Dashboard)/_actions/getRentalById";
+import PayButton from "@/app/(Dashboard)/_components/PayButton";
+import { IRental } from "@/lib/types";
 
 interface IRentalDetails {
     id: string;
@@ -52,36 +53,15 @@ interface IRentalDetails {
     };
 }
 
-const MOCK_RENTAL_DATA: IRentalDetails = {
-    id: "dc5b962f-9dff-4f9c-afa6-c3aa8d3c9468",
-    customerId: "e61fb164-4c2e-4768-b656-5c92e06d4e14",
-    gearItemId: "a5edc6fa-0dd5-43ef-99d3-d01280bf54b1",
-    quantity: 2,
-    startDate: "2026-07-10T00:00:00.000Z",
-    endDate: "2026-07-12T00:00:00.000Z",
-    totalPrice: 21000,
-    status: "PLACED", // 👈 Change status to TEST (e.g. "CONFIRMED" or "PLACED")
-    createdAt: "2026-07-31T02:01:24.872Z",
-    updatedAt: "2026-07-31T02:01:24.872Z",
-    gearItem: {
-        id: "a5edc6fa-0dd5-43ef-99d3-d01280bf54b1",
-        title: "Track Driving",
-        description: "Professional mountain track",
-        brand: "Trek",
-        pricePerDay: 500,
-        stock: 6,
-        status: "AVAILABLE",
-        image:
-            "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=800",
-        providerId: "6c28680e-f65a-468c-9b73-187458cde5a5",
-        category: "Bike",
-        createdAt: "2026-07-10T03:11:40.988Z",
-        updatedAt: "2026-07-31T02:01:24.890Z",
-    },
+type PageProps = {
+    params: Promise<{
+        id: string;
+    }>;
 };
 
-export default function RentalDetailsPage() {
-    const rental = MOCK_RENTAL_DATA;
+export default async function RentalDetailsPage({ params }: PageProps) {
+    const { id } = await params
+    const rental:IRental = await getRentalById(id)
 
     const start = new Date(rental.startDate);
     const end = new Date(rental.endDate);
@@ -108,8 +88,8 @@ export default function RentalDetailsPage() {
                             Rental Order Details
                         </h1>
                         <p className="text-xs text-muted-foreground font-mono">
-                            Order ID: #{rental.id.slice(0, 12)}...
-                        </p>    
+                            Order ID: #{rental.id?.slice(0, 12)}...
+                        </p>
                     </div>
                 </div>
 
@@ -292,11 +272,7 @@ export default function RentalDetailsPage() {
                         </div>
 
                         {isPayable ? (
-                            <Button
-                                className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/20 transition-all gap-2 mt-4"
-                            >
-                                <CreditCard className="w-4 h-4" /> Pay Now (${rental.totalPrice.toLocaleString()})
-                            </Button>
+                            <PayButton rental={rental} />
                         ) : rental.status === "PAID" ? (
                             <Button
                                 disabled

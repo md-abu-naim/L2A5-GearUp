@@ -1,20 +1,12 @@
 "use server"
-
 import { isAccessTokenExists } from "@/services/getToken"
 import { redirect } from "next/navigation"
 
-type payloadTypes = {
-    gearItemId: string,
-    startDate: string,
-    endDate: string
-    quantity: number,
-    totalPrice: number,
-}
-
-export const createRental = async (payload: payloadTypes) => {
+export const createPayment = async (id: string) => {
+    const payload = {rentalId: id}
     const accessToken = await isAccessTokenExists()
 
-    const res = await fetch(`${process.env.BACKEND_URL}/rentals`, {
+    const res = await fetch(`${process.env.BACKEND_URL}/payment/create`, {
         method: "POST",
         headers: {
             Cookie: `accessToken=${accessToken}`,
@@ -25,8 +17,8 @@ export const createRental = async (payload: payloadTypes) => {
 
     const result = await res.json()
 
-    if (result.success) {
-        redirect(`/dashboard/my-rentals/${result.data.rental.id}`)
+    if(result.success){
+        redirect(result.data.payment.checkoutUrl)
     }
 
     return result

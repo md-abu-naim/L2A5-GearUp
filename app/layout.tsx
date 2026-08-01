@@ -34,7 +34,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable, geistHeading.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <Toaster />
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>

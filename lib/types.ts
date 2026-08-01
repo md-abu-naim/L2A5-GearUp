@@ -107,3 +107,32 @@ export interface IRental {
   updatedAt: string;
   gearItem: GearItem
 }
+
+export interface IPayment {
+  id: string;
+  amount: number;
+  status: "COMPLETED" | "PAID" | "PENDING" | "FAILED" | "REFUNDED";
+  transactionId: string;
+  rentalOrderId: string;
+  customerId: string;
+  createdAt: string;
+  updatedAt: string;
+  rentalOrder: {
+    customerId: string;
+    gearItemId: string;
+    quantity: number;
+    startDate: string;
+    endDate: string;
+    totalPrice: number;
+    status: string;
+    gearItem: {
+      title: string;
+      description: string;
+      brand: string;
+      pricePerDay: number;
+      image: string;
+      category: string;
+      providerId: string;
+    };
+  };
+}
