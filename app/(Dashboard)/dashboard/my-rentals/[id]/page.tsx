@@ -15,7 +15,6 @@ import {
     Layers,
     Receipt,
     Download,
-    CreditCard
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,32 +25,6 @@ import { getRentalById } from "@/app/(Dashboard)/_actions/getRentalById";
 import PayButton from "@/app/(Dashboard)/_components/PayButton";
 import { IRental } from "@/lib/types";
 
-interface IRentalDetails {
-    id: string;
-    customerId: string;
-    gearItemId: string;
-    quantity: number;
-    startDate: string;
-    endDate: string;
-    totalPrice: number;
-    status: "PLACED" | "CONFIRMED" | "PAID" | "PICKED_UP" | "RETURNED" | "CANCELLED";
-    createdAt: string;
-    updatedAt: string;
-    gearItem: {
-        id: string;
-        title: string;
-        description: string;
-        brand: string;
-        pricePerDay: number;
-        stock: number;
-        status: string;
-        image: string;
-        providerId: string;
-        category: string;
-        createdAt: string;
-        updatedAt: string;
-    };
-}
 
 type PageProps = {
     params: Promise<{

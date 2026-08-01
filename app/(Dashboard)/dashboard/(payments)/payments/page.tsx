@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { format } from "date-fns";
 import {
@@ -185,7 +184,7 @@ export default async function PaymentHistoryPage() {
 
                     <td className="py-4 px-6 text-right whitespace-nowrap">
                       <Link
-                        href={`/dashboard/my-rentals/${payment.rentalOrderId}`}
+                        href={`/dashboard/payments/${payment.id}`}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-emerald-600 bg-slate-100 hover:bg-emerald-50 px-3 py-1.5 rounded-lg transition-all"
                       >
                         Payment Details
