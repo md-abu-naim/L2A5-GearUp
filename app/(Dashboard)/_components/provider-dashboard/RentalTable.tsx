@@ -51,7 +51,7 @@ const RentalTable = ({ rental }: RentalTableProps) => {
                         ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                         : rental.status === "PLACED"
                             ? "bg-amber-50 text-amber-700 border-amber-200"
-                            : rental.status === "RETURNED"
+                            : rental.status === "RETURNED" || rental.status === 'PICKED_UP'
                                 ? "bg-blue-50 text-blue-700 border-blue-200"
                                 : "bg-rose-50 text-rose-700 border-rose-200"
                         }`}
@@ -65,7 +65,7 @@ const RentalTable = ({ rental }: RentalTableProps) => {
             </TableCell>
 
             <TableCell className="text-right">
-                <RentalActions />
+                <RentalActions id={rental.id} />
             </TableCell>
         </TableRow>
     )
