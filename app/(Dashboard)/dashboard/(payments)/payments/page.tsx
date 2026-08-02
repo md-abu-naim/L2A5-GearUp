@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { IPayment } from "@/lib/types";
 import Image from "next/image";
-import { getMyPayments } from "@/app/(Dashboard)/_actions/getMyPayments";
+import { getMyPayments } from "@/app/(Dashboard)/_actions/dashboard/getMyPayments";
 
 
 export default async function PaymentHistoryPage() {

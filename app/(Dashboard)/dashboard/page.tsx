@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getMyRentals } from "../_actions/getMyRentals";
+import { getMyRentals } from "../_actions/dashboard/getMyRentals";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { IRental } from "@/lib/types";

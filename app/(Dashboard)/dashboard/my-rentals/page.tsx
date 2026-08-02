@@ -1,5 +1,5 @@
 import { ShoppingBag, Package } from "lucide-react";
-import { getMyRentals } from "../../_actions/getMyRentals";
+import { getMyRentals } from "../../_actions/dashboard/getMyRentals";
 import { IRental } from "@/lib/types";
 import {
   Table,
@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import RentalTables from "../../_components/RentalTables";
+import RentalTables from "../../_components/dashboard/RentalTables";
 
 export default async function MyRentalsPage() {
   const rentals: IRental[] = (await getMyRentals()) || [];

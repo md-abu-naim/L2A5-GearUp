@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { getRentalById } from "../../../_actions/getRentalById";
+import { getRentalById } from "../../../_actions/dashboard/getRentalById";
 
 type Props = {
     searchParams: Promise<{
@@ -60,7 +60,7 @@ export default async function PaymentSuccessPage({ searchParams }: Props) {
                             </p>
                         </div>
                         <Badge className="bg-emerald-600 text-white font-bold text-xs rounded-xl px-3 py-1 w-fit">
-                            Status: PAID
+                            Status: {rental.status}
                         </Badge>
                     </div>
 

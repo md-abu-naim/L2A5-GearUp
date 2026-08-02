@@ -26,7 +26,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { getPaymentById } from "@/app/(Dashboard)/_actions/getPaymentById";
+import { getPaymentById } from "@/app/(Dashboard)/_actions/dashboard/getPaymentById";
 
 
 // 🔹 Single Payment Data Object (Provided by user)

@@ -2,8 +2,8 @@
 import { Button } from '@/components/ui/button'
 import { IRental } from '@/lib/types'
 import { CreditCard } from 'lucide-react'
-import { createPayment } from '../_actions/createPayment'
 import { toast } from 'sonner'
+import { createPayment } from '../../_actions/dashboard/createPayment'
 
 type PayButtonProps = {
     rental: IRental

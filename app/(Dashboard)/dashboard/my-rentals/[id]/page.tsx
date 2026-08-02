@@ -21,9 +21,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { getRentalById } from "@/app/(Dashboard)/_actions/getRentalById";
-import PayButton from "@/app/(Dashboard)/_components/PayButton";
 import { IRental } from "@/lib/types";
+import { getRentalById } from "@/app/(Dashboard)/_actions/dashboard/getRentalById";
+import PayButton from "@/app/(Dashboard)/_components/dashboard/PayButton";
 
 
 type PageProps = {
