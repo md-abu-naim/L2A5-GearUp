@@ -9,22 +9,17 @@ export const PROVIDER_SIDEBAR_ITEMS: ISidebarItem[] = [
   },
   {
     label: "My Gear List",
-    href: "/provider-dashboard/gear",
+    href: "/provider-dashboard/my-gears",
     icon: Package,
   },
   {
     label: "Add New Gear",
-    href: "/provider-dashboard/gear/new",
+    href: "/provider-dashboard/add-gear",
     icon: PlusCircle,
   },
   {
     label: "Rental Requests",
     href: "/provider-dashboard/rentals",
     icon: ShoppingBag,
-  },
-  {
-    label: "Earnings",
-    href: "/provider-dashboard/payments",
-    icon: CreditCard,
-  },
+  }
 ];

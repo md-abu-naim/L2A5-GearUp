@@ -1,0 +1,161 @@
+import Link from "next/link";
+import Image from "next/image";
+import { format } from "date-fns";
+import {
+    Plus,
+    Edit3,
+    Trash2,
+    ExternalLink,
+    Boxes,
+    CheckCircle2,
+    XCircle,
+    Calendar,
+    User,
+    Tag,
+    Layers
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { getMyGears } from "../../_actions/provider-dashboard/getMyGears";
+import { GearItem } from "@/lib/types";
+import GearActions from "../../_components/provider-dashboard/GearActions";
+
+export default async function MyGearsPage() {
+    const gears: GearItem[] = await getMyGears()
+
+    return (
+        <div className="max-w-7xl mx-auto space-y-6 pb-16 pt-2 px-4 sm:px-6 bg-slate-50/50 min-h-screen">
+            <div className="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xs">
+                <div className="space-y-1.5">
+                    <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-xs font-bold px-3 py-0.5 rounded-full w-fit">
+                        <Boxes className="w-3.5 h-3.5 mr-1" /> Inventory Hub
+                    </Badge>
+                    <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                        My Gear Items ({gears.length})
+                    </h1>
+                    <p className="text-xs md:text-sm text-slate-500 max-w-lg">
+                        Manage product specifications, monitor live rental rates, and update equipment availability.
+                    </p>
+                </div>
+
+                <Button
+                    size="sm"
+                    asChild
+                    className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs h-11 px-5 gap-2 shadow-xs shrink-0"
+                >
+                    <Link href="/dashboard/provider/add-gear">
+                        <Plus className="w-4 h-4" /> Add New Gear
+                    </Link>
+                </Button>
+            </div>
+
+            <div className="space-y-5">
+                {gears.map((gear) => (
+                    <Card
+                        key={gear.id}
+                        className="rounded-3xl border border-slate-200/80 bg-white overflow-hidden shadow-xs hover:border-slate-300 transition-all p-5 md:p-6"
+                    >
+                        <div className="flex flex-col lg:flex-row gap-6">
+
+                            <div className="relative w-full lg:w-56 h-48 lg:h-auto rounded-2xl overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
+                                <Image
+                                    src={gear.image}
+                                    alt={gear.title}
+                                    fill
+                                    sizes="(max-width: 1024px) 100vw, 224px"
+                                    className="object-cover"
+                                    priority
+                                />
+
+                                <div className="absolute top-3 left-3">
+                                    <Badge
+                                        className={`font-bold text-[10px] px-2.5 py-1 rounded-lg border shadow-sm flex items-center gap-1 ${gear.status === "AVAILABLE"
+                                                ? "bg-emerald-500 text-white border-emerald-600"
+                                                : "bg-rose-500 text-white border-rose-600"
+                                            }`}
+                                    >
+                                        {gear.status === "AVAILABLE" ? (
+                                            <CheckCircle2 className="w-3 h-3" />
+                                        ) : (
+                                            <XCircle className="w-3 h-3" />
+                                        )}
+                                        {gear.status === "AVAILABLE" ? "AVAILABLE" : "OUT OF STOCK"}
+                                    </Badge>
+                                </div>
+                            </div>
+
+                            <div className="flex-1 space-y-4">
+                                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100">
+                                    <div>
+                                        <span className="text-[10px] font-mono font-bold text-slate-400 block uppercase">
+                                            ID: {gear.id}
+                                        </span>
+                                        <h2 className="text-xl font-black text-slate-900 tracking-tight mt-0.5">
+                                            {gear.title}
+                                        </h2>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <GearActions gear={gear} />
+
+                                </div>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    {gear.description}
+                                </p>
+
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-100 p-3.5 rounded-2xl border border-slate-100 text-xs">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Category</span>
+                                        <span className="font-bold text-slate-800 flex items-center gap-1 mt-0.5">
+                                            <Tag className="w-3 h-3 text-emerald-600" /> {gear.category}
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Brand</span>
+                                        <span className="font-bold text-slate-800 flex items-center gap-1 mt-0.5">
+                                            <Layers className="w-3 h-3 text-blue-600" /> {gear.brand}
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Price / Day</span>
+                                        <span className="font-black text-emerald-700 mt-0.5 block">
+                                            ${gear.pricePerDay.toLocaleString()}
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Stock Units</span>
+                                        <span className="font-black text-slate-900 mt-0.5 block">
+                                            {gear.stock} Available
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div className="flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-400 pt-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-medium text-slate-500 flex items-center gap-1">
+                                            <User className="w-3 h-3 text-slate-400" /> Owner:
+                                        </span>
+                                        <span className="font-bold text-slate-800">{gear.provider.name}</span>
+                                        <span className="text-slate-400 font-mono">({gear.provider.email})</span>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <span className="flex items-center gap-1">
+                                            <Calendar className="w-3 h-3 text-slate-400" /> Created:{" "}
+                                            {format(new Date(gear.createdAt), "MMM dd, yyyy")}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+}
