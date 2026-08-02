@@ -18,7 +18,7 @@ type UserRole = "CUSTOMER" | "PROVIDER" | "ADMIN";
 
 type UserStatus = "ACTIVE" | "SUSPENDED";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;
