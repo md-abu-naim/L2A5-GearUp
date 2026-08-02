@@ -233,7 +233,7 @@ export default async function ProviderDashboardPage() {
                 </div>
 
                 <div className="flex items-center justify-between text-[11px] text-slate-500">
-                  <span>Renter: <strong className="text-slate-700">{rental.gearItem.providerId}</strong></span>
+                  <span>Renter: <strong className="text-slate-700">{rental.gearItem.providerId?.slice(0,12)}</strong></span>
                   <span className="flex items-center gap-1 text-slate-600 font-medium">
                     <Clock className="w-3 h-3 text-emerald-600" /> Due: {format(new Date(rental.endDate), "MMM dd")}
                   </span>

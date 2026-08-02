@@ -22,37 +22,12 @@ import {
 import { getMyRentals } from "../_actions/dashboard/getMyRentals";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { IRental } from "@/lib/types";
-
-const MOCK_PAYMENTS = [
-  {
-    id: "PAY-1092",
-    rentalId: "RENT-9021",
-    amount: 500,
-    method: "Stripe",
-    date: "2026-07-30",
-    status: "SUCCESS",
-  },
-  {
-    id: "PAY-1044",
-    rentalId: "RENT-8834",
-    amount: 120,
-    method: "bKash",
-    date: "2026-07-19",
-    status: "SUCCESS",
-  },
-  {
-    id: "PAY-0988",
-    rentalId: "RENT-8120",
-    amount: 60,
-    method: "SSLCommerz",
-    date: "2026-07-09",
-    status: "PENDING",
-  },
-];
+import { IPayment, IRental } from "@/lib/types";
+import { getMyPayments } from "../_actions/dashboard/getMyPayments";
 
 export default async function CustomerDashboardPage() {
   const rentals: IRental[] = await getMyRentals()
+  const payments: IPayment[] = await getMyPayments()
 
   const activeRentals = rentals.filter((r) => ["CONFIRMED", "PAID", "PICKED_UP"].includes(r.status)).length;
 
@@ -248,7 +223,7 @@ export default async function CustomerDashboardPage() {
           </div>
 
           <Card className="rounded-2xl border-border/60 bg-card p-4 space-y-3 shadow-xs">
-            {MOCK_PAYMENTS.map((payment) => (
+            {payments?.slice(0,6).map((payment) => (
               <div
                 key={payment.id}
                 className="flex items-center justify-between p-3 rounded-xl bg-muted/40 border border-border/40 hover:border-border transition-all"
@@ -259,11 +234,11 @@ export default async function CustomerDashboardPage() {
                       ${payment.amount}
                     </p>
                     <span className="text-[10px] font-medium text-muted-foreground bg-background px-1.5 py-0.5 rounded border border-border/50">
-                      {payment.method}
+                      Stripe
                     </span>
                   </div>
                   <p className="text-[10px] text-muted-foreground">
-                    ID: {payment.id} • {payment.date}
+                    ID: {payment.id?.slice(0,10)} • {format(new Date(payment.createdAt), "MMM dd")}
                   </p>
                 </div>
                 <div>
