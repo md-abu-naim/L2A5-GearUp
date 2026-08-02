@@ -162,7 +162,7 @@ const HeroSection = () => {
                                 asChild
                                 className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-6 text-sm shadow-xl shadow-emerald-600/25 transition-all duration-300 transform hover:-translate-y-0.5"
                             >
-                                <Link href="/items" className="flex items-center justify-center">
+                                <Link href="/gears" className="flex items-center justify-center">
                                     Explore Gear
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
@@ -174,7 +174,7 @@ const HeroSection = () => {
                                 asChild
                                 className="rounded-full border-border hover:bg-muted text-foreground font-semibold px-8 py-6 text-sm shadow-xs transition-all duration-300 transform hover:-translate-y-0.5"
                             >
-                                <Link href="/auth/register">
+                                <Link href="/register">
                                     Become a Provider
                                 </Link>
                             </Button>

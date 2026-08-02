@@ -129,7 +129,7 @@ const GearActions = ({ gear, categories }: Props) => {
 
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <label className="text-xs font-semibold text-slate-700">Price Per Day (৳)</label>
+                                <label className="text-xs font-semibold text-slate-700">Price Per Day ($)</label>
                                 <Input
                                     type="number"
                                     name="pricePerDay"

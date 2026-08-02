@@ -36,7 +36,7 @@ export default async function FeaturedGearSection() {
                         variant="outline"
                         className="rounded-xl border-border hover:bg-muted text-foreground font-medium self-start sm:self-auto"
                     >
-                        <Link href="/items" className="flex items-center gap-2">
+                        <Link href="/gears" className="flex items-center gap-2">
                             View All Gear
                             <ArrowRight className="w-4 h-4 text-emerald-600" />
                         </Link>

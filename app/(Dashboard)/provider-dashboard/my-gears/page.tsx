@@ -43,7 +43,7 @@ export default async function MyGearsPage() {
                     asChild
                     className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs h-11 px-5 gap-2 shadow-xs shrink-0"
                 >
-                    <Link href="/dashboard/provider/add-gear">
+                    <Link href="/provider-dashboard/add-gear">
                         <Plus className="w-4 h-4" /> Add New Gear
                     </Link>
                 </Button>
