@@ -10,8 +10,10 @@ export const getAllRentals = async () => {
             headers: {
                 Cookie: `accessToken=${accessToken}`
             },
+            cache: 'force-cache',
             next: {
-                revalidate: 0
+                revalidate: 60 * 60 * 24,
+                tags: ["provider-rentals"]
             }
         })
         const rentals = await res.json()

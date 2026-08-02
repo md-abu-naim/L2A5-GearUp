@@ -10,8 +10,10 @@ export const getMyGears = async () => {
             headers: {
                 Cookie: `accessToken=${accessToken}`
             },
+            cache: 'force-cache',
             next: {
-                revalidate: 0
+                revalidate: 60 * 60 * 24,
+                tags: ["provider-gears"]
             }
         })
         const gears = await res.json()

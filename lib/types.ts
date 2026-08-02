@@ -136,3 +136,13 @@ export interface IPayment {
     };
   };
 }
+
+export type GearPayload = {
+  title?: string;
+  brand?: string;
+  category?: string;
+  pricePerDay?: number;
+  stock?: number;
+  image?: string;
+  description?: string;
+};

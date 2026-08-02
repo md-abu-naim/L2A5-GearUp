@@ -1,7 +1,7 @@
 "use server"
 
 import { isAccessTokenExists } from "@/services/getToken"
-import { revalidatePath } from "next/cache"
+import { revalidateTag } from "next/cache"
 
 export const deleteGear = async (id: string) => {
     try {
@@ -16,7 +16,9 @@ export const deleteGear = async (id: string) => {
         const result = await res.json()
 
         if (result.success) {
-            revalidatePath("/provider/dashboard"); // অথবা যেই page-এ gear list আছে
+            revalidateTag("provider-gears", {
+                expire: 0
+            })
         }
 
         return result || [];

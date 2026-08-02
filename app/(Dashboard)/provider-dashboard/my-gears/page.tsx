@@ -3,9 +3,6 @@ import Image from "next/image";
 import { format } from "date-fns";
 import {
     Plus,
-    Edit3,
-    Trash2,
-    ExternalLink,
     Boxes,
     CheckCircle2,
     XCircle,
@@ -18,11 +15,13 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getMyGears } from "../../_actions/provider-dashboard/getMyGears";
-import { GearItem } from "@/lib/types";
+import { CategoryItem, GearItem } from "@/lib/types";
 import GearActions from "../../_components/provider-dashboard/GearActions";
+import { getCategories } from "@/app/(Public)/_actions/getCategories";
 
 export default async function MyGearsPage() {
     const gears: GearItem[] = await getMyGears()
+    const categories:CategoryItem[] = await getCategories()
 
     return (
         <div className="max-w-7xl mx-auto space-y-6 pb-16 pt-2 px-4 sm:px-6 bg-slate-50/50 min-h-screen">
@@ -97,7 +96,7 @@ export default async function MyGearsPage() {
                                     </div>
 
                                     {/* Actions */}
-                                    <GearActions gear={gear} />
+                                    <GearActions gear={gear} categories={categories} />
 
                                 </div>
                                 <p className="text-xs text-slate-600 leading-relaxed">
