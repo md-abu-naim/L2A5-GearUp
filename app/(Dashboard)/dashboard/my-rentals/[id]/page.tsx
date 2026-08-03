@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { IRental } from "@/lib/types";
 import { getRentalById } from "@/app/(Dashboard)/_actions/dashboard/getRentalById";
 import PayButton from "@/app/(Dashboard)/_components/dashboard/PayButton";
+import ReviewForm from "@/app/(Dashboard)/_components/dashboard/ReviewForm";
 
 
 type PageProps = {
@@ -34,7 +35,7 @@ type PageProps = {
 
 export default async function RentalDetailsPage({ params }: PageProps) {
     const { id } = await params
-    const rental:IRental = await getRentalById(id)
+    const rental: IRental = await getRentalById(id)
 
     const start = new Date(rental.startDate);
     const end = new Date(rental.endDate);
@@ -174,6 +175,10 @@ export default async function RentalDetailsPage({ params }: PageProps) {
                             </div>
                         </div>
                     </Card>
+
+                    {
+                        rental.status === 'RETURNED' && <ReviewForm gearItemId={rental.gearItemId} />
+                    }
                 </div>
 
                 {/* RIGHT COLUMN: PAYMENT BUTTON */}
