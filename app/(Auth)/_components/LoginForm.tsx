@@ -33,8 +33,10 @@ export default function LoginForm({ redirectTo }: FormProps) {
     setIsLoading(true);
 
     try {
-      await loginUser(data, redirectTo as string) 
-      toast.success("Welcome back! Logging in...");
+      const result = await loginUser(data, redirectTo as string)
+      if (result.success) {
+        toast.success(result.message || "Welcome back! Logging in...");
+      }
     } catch (error: any) {
       toast.error(error.message || "Something went wrong during login.");
     } finally {

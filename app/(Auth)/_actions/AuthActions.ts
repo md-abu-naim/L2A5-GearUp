@@ -1,7 +1,6 @@
 "use server"
 import { cookies } from "next/headers";
 import { LoginFormTypes, RegisterFormTypes } from "./FormValidation";
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import { redirect } from "next/navigation";
 
 export const createUser = async (data: RegisterFormTypes) => {
@@ -84,19 +83,12 @@ export const loginUser = async (data: LoginFormTypes, redirectTo: string) => {
             maxAge: 60 * 60 * 24 * 7,
         });
 
-        const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload
 
         if(redirectTo && typeof redirectTo === 'string' && redirectTo.startsWith('/') && !redirectTo.startsWith('//')){
             redirect(redirectTo)
         }
 
-        if (decodedToken.role === 'CUSTOMER') {
-            redirect('/dashboard')
-        } else if (decodedToken.role === 'PROVIDER') {
-            redirect('/provider-dashboard')
-        } else if (decodedToken.role === 'ADMIN') {
-            redirect('/admin-dashboard')
-        }
+        redirect('/')
     }
 
     return result

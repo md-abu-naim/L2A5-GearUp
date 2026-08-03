@@ -32,6 +32,7 @@ export default async function ProviderDashboardPage() {
   const pendingRentals = rentals.filter((r) => r.status === "PLACED");
   const cancelledRentals = rentals.filter((r) => r.status === "CANCELLED");
   const totalSpent = rentals.filter((r) => r.status !== "CANCELLED").reduce((acc, curr) => acc + curr.totalPrice, 0);
+
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-16 pt-2 px-4 sm:px-6 bg-slate-50/50 min-h-screen">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
@@ -168,7 +169,7 @@ export default async function ProviderDashboardPage() {
                 Pending Rental Requests
               </h2>
               <Badge className="bg-amber-100 text-amber-800 border-amber-200 font-bold text-[10px] rounded-full">
-                02 Action Needed
+                {pendingRentals?.length} Action Needed
               </Badge>
             </div>
 

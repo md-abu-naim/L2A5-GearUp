@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2, UserCheck, Store, Lock, Mail, User } from "lucide-react";
@@ -12,7 +11,6 @@ import { RegisterFormTypes, RegisterValidation } from "../_actions/FormValidatio
 import { createUser } from "../_actions/AuthActions";
 
 export default function RegisterForm() {
-    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -37,15 +35,18 @@ export default function RegisterForm() {
 
     const onSubmit = async (data: RegisterFormTypes) => {
         setIsLoading(true);
-        
-        try {
-            await createUser(data)
 
-          toast.success("Account created successfully! Please log in.");
+        try {
+            const result = await createUser(data)
+
+            if (result.sucess) {
+                toast.success(result.message || "Account created successfully! Please log in.");
+            }
+
         } catch (error: any) {
-          toast.error(error.message || "Something went wrong during registration.");
+            toast.error(error.message || "Something went wrong during registration.");
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -70,8 +71,8 @@ export default function RegisterForm() {
                             type="button"
                             onClick={() => setValue("role", "CUSTOMER")}
                             className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-medium transition-all ${selectedRole === "CUSTOMER"
-                                    ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
-                                    : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600"
+                                ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
+                                : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600"
                                 }`}
                         >
                             <UserCheck className="w-4 h-4" />
@@ -81,8 +82,8 @@ export default function RegisterForm() {
                             type="button"
                             onClick={() => setValue("role", "PROVIDER")}
                             className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-medium transition-all ${selectedRole === "PROVIDER"
-                                    ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
-                                    : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600 "
+                                ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
+                                : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600 "
                                 }`}
                         >
                             <Store className="w-4 h-4" />
