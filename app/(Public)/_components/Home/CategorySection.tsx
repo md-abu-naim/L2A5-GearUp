@@ -38,7 +38,7 @@ export default async function CategorySection() {
             {categories.map((category) => (
               <Link
                 key={category.id}
-                href={`/gear?category=${encodeURIComponent(category.name)}`}
+                href={`/gears?category=${encodeURIComponent(category.name)}`}
                 className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-4 shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-emerald-500/5 blur-2xl group-hover:bg-emerald-500/15 transition-all duration-500" />
@@ -46,9 +46,7 @@ export default async function CategorySection() {
                 <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 font-extrabold text-lg group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-xs">
-                      {
-                        category.name.charAt(0).toUpperCase()
-                      }
+                      <Layers className="w-4 h-4" />
                     </div>
                     <span className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase bg-muted/60 px-3 py-1 rounded-full border border-border/40">
                       Explore

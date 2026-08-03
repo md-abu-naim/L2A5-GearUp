@@ -66,7 +66,7 @@ export default function CTASection() {
                     size="lg"
                     className="w-full justify-between rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold h-13 px-5 shadow-lg shadow-emerald-600/25 transition-all duration-300"
                   >
-                    <Link href="/items">
+                    <Link href="/gears">
                       <span className="flex items-center gap-2.5">
                         <Compass className="w-4 h-4" />
                         Explore All Gear
@@ -81,7 +81,7 @@ export default function CTASection() {
                     size="lg"
                     className="w-full justify-between rounded-xl border-border bg-card hover:bg-muted text-foreground font-semibold h-13 px-5 shadow-xs transition-all duration-300"
                   >
-                    <Link href="/auth/register">
+                    <Link href="/register">
                       <span className="flex items-center gap-2.5">
                         <UserPlus className="w-4 h-4 text-emerald-600" />
                         Become a Provider
