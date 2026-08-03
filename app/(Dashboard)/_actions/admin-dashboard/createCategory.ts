@@ -1,10 +1,13 @@
 "use server"
-import { GearPayload } from "@/lib/types"
 import { isAccessTokenExists } from "@/services/getToken"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 
-export const createCategory = async (payload: GearPayload) => {
+type Payload = {
+    name: string,
+    description: string
+}
+export const createCategory = async (payload: Payload) => {
     const accessToken = await isAccessTokenExists()
 
     const res = await fetch(`${process.env.BACKEND_URL}/admin/categories`, {

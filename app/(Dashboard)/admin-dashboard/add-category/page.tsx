@@ -31,6 +31,7 @@ export default function AddCategoryPage() {
 
         if(result.success){
             toast.success(result.message || "Category Created Successfully")
+            setIsLoading(false)
         }
     };
 

@@ -30,7 +30,9 @@ import UsersTable from "../_components/admin-dashboard/UsersTable";
 
 export default async function AdminDashboardPage() {
     const rentals: IRental[] = await getAllRentals()
-    const users: User[] = await getAllUsers()
+    const result = await getAllUsers()
+    const users: User[] = result.data.users;
+    const meta = result.data.meta;
 
     const activeRentals = rentals.filter((r) => ["CONFIRMED", "PAID", "PICKED_UP"].includes(r.status))?.length;
     const pendingRentals = rentals.filter((r) => r.status === "PLACED")?.length;
@@ -38,7 +40,7 @@ export default async function AdminDashboardPage() {
 
     const stats = {
         totalRevenue: totalSpent,
-        totalUsers: users?.length,
+        totalUsers: meta.total,
         activeRentals: activeRentals,
         pendingVerifications: pendingRentals,
     };
