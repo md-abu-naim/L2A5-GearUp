@@ -1,5 +1,5 @@
 import { ISidebarItem } from "@/lib/types";
-import { LayoutDashboard, Users, Package, FolderTree, ShoppingBag, CreditCard } from "lucide-react";
+import { LayoutDashboard, Users, Package, FolderTree, ShoppingBag, CreditCard, Plus } from "lucide-react";
 
 export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
@@ -14,8 +14,13 @@ export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   },
   {
     label: "All Gear Listings",
-    href: "/admin-dashboard/gear",
+    href: "/admin-dashboard/all-gears",
     icon: Package,
+  },
+  {
+    label: "Add New Category",
+    href: "/admin-dashboard/add-category",
+    icon: Plus,
   },
   {
     label: "Categories",
@@ -24,12 +29,7 @@ export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   },
   {
     label: "All Rentals",
-    href: "/admin-dashboard/rentals",
+    href: "/admin-dashboard/all-rentals",
     icon: ShoppingBag,
-  },
-  {
-    label: "Transactions",
-    href: "/amin-dashboard/payments",
-    icon: CreditCard,
   },
 ];

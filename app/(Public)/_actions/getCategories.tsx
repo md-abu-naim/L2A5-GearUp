@@ -3,8 +3,10 @@
 export async function getCategories() {
     try {
         const res = await fetch(`${process.env.BACKEND_URL}/categories`, {
+            cache: 'force-cache',
             next: {
-                revalidate: 0
+                revalidate: 60 * 60 * 24,
+                tags: ["categories"]
             }
         })
         const categories = await res.json()

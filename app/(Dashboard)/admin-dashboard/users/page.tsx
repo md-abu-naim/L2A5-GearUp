@@ -10,7 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Users, UserCheck, ShieldAlert, UserPlus } from "lucide-react";
+import { Users, UserCheck, ShieldAlert, Package } from "lucide-react";
 import UsersTable from "../../_components/admin-dashboard/UsersTable";
 import { getAllUsers } from "../../_actions/admin-dashboard/getAllUsers";
 import Link from "next/link";
@@ -43,7 +43,7 @@ export default async function AdminUsersPage() {
                         href="/admin-dashboard/add-category"
                         className="flex items-center gap-2"
                     >
-                        <UserPlus className="w-4 h-4 text-emerald-400" />
+                        <Package className="w-4 h-4 text-emerald-400" />
                         Add New Category
                     </Link>
                 </Button>
