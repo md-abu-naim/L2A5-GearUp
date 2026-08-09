@@ -146,3 +146,21 @@ export type GearPayload = {
   image?: string;
   description?: string;
 };
+
+export interface IReviewItem {
+  id: string;
+  rating: number;
+  comment: string;
+  customerId: string;
+  gearItemId: string;
+  createdAt: string;
+  updatedAt: string;
+  customer?: {
+    name: string;
+    image?: string;
+    role?: string;
+  };
+  gearItem?: {
+    title: string;
+  };
+}

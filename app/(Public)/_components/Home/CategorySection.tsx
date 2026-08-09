@@ -11,7 +11,7 @@ export default async function CategorySection() {
   return (
     <section className="relative overflow-hidden bg-background">
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-emerald-50/20 via-background to-background" />
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <Badge
             variant="secondary"

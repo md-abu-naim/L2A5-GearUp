@@ -1,8 +1,8 @@
 "use server"
 
-export async function getFeaturedGears() {
+export async function getPopularGears() {
     try {
-        const res = await fetch(`${process.env.BACKEND_URL}/gear/featured`)
+        const res = await fetch(`${process.env.BACKEND_URL}/gear/popular`)
         const gears = await res.json()
 
         return gears?.data || [];

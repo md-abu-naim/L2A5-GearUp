@@ -8,7 +8,7 @@ export default function CTASection() {
     <section className="relative py-20 overflow-hidden bg-background">
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-emerald-500/10 to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-96 w-96 rounded-full bg-emerald-500/15 blur-[120px] pointer-events-none" />
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="relative overflow-hidden rounded-3xl border border-emerald-500/30 bg-card p-8 sm:p-12 lg:p-16 shadow-2xl">
           <div className="absolute top-0 right-0 h-1.5 w-full bg-linear-to-r from-transparent via-emerald-500 to-transparent" />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">

@@ -12,7 +12,7 @@ export default async function FeaturedGearSection() {
     return (
         <section className="relative py-16 lg:py-24 overflow-hidden bg-background">
             <div className="absolute inset-0 -z-10 bg-linear-to-br from-emerald-50/30 via-background to-background" />
-            <div className="container mx-auto px-4 max-w-6xl">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
                 {/* Section Header */}
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
                     <div className="space-y-3">
