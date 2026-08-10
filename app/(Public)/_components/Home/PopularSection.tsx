@@ -10,7 +10,7 @@ import { getPopularGears } from "../../_actions/Home/getPopularGears";
 const PopularGears = async() => {
     const gears: GearItem[] = await getPopularGears()
   return (
-        <section className="py-16 bg-slate-50/50 dark:bg-slate-950/50">
+        <section className="pt-16 bg-slate-50/50 dark:bg-slate-950/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
                 {/* 🔹 1. SECTION HEADER */}

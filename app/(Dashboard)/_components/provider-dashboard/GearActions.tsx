@@ -65,7 +65,7 @@ const GearActions = ({ gear, categories }: Props) => {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="h-8 px-3 rounded-xl border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50"
+                        className="h-8 px-3 rounded-xl border-slate-200 font-bold text-xs hover:bg-slate-50"
                     >
                         <Edit3 className="w-3.5 h-3.5 mr-1 text-slate-500" /> Edit
                     </Button>
@@ -82,7 +82,7 @@ const GearActions = ({ gear, categories }: Props) => {
                     {/* Form */}
                     <form onSubmit={handleEditSubmit} className="space-y-4 py-2">
                         <div className="space-y-1">
-                            <label className="text-xs font-semibold text-slate-700">Title</label>
+                            <label className="text-xs font-semibold">Title</label>
                             <Input
                                 name="title"
                                 defaultValue={gear.title}
@@ -93,7 +93,7 @@ const GearActions = ({ gear, categories }: Props) => {
 
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <label className="text-xs font-semibold text-slate-700">Brand</label>
+                                <label className="text-xs font-semibold">Brand</label>
                                 <Input
                                     name="brand"
                                     defaultValue={gear.brand}
@@ -102,7 +102,7 @@ const GearActions = ({ gear, categories }: Props) => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold text-slate-700">
+                                <label className="text-xs font-semibold">
                                     Category
                                 </label>
 
@@ -129,7 +129,7 @@ const GearActions = ({ gear, categories }: Props) => {
 
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <label className="text-xs font-semibold text-slate-700">Price Per Day ($)</label>
+                                <label className="text-xs font-semibold">Price Per Day ($)</label>
                                 <Input
                                     type="number"
                                     name="pricePerDay"
@@ -139,7 +139,7 @@ const GearActions = ({ gear, categories }: Props) => {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-semibold text-slate-700">Stock Quantity</label>
+                                <label className="text-xs font-semibold">Stock Quantity</label>
                                 <Input
                                     type="number"
                                     name="stock"
@@ -151,7 +151,7 @@ const GearActions = ({ gear, categories }: Props) => {
                         </div>
 
                         <div className="space-y-1">
-                            <label className="text-xs font-semibold text-slate-700">Image URL</label>
+                            <label className="text-xs font-semibold">Image URL</label>
                             <Input
                                 type="url"
                                 name="image"
@@ -162,7 +162,7 @@ const GearActions = ({ gear, categories }: Props) => {
                         </div>
 
                         <div className="space-y-1">
-                            <label className="text-xs font-semibold text-slate-700">Description</label>
+                            <label className="text-xs font-semibold">Description</label>
                             <Textarea
                                 name="description"
                                 defaultValue={gear.description}

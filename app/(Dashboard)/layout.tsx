@@ -1,23 +1,3 @@
-// import { SidebarProvider } from "@/components/ui/sidebar"
-// import { getMe } from "@/services/getMe"
-// import DashboardSidebar from "./_components/DashboardSidebar"
-
-// const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-//     const user = await getMe()
-//     console.log(user);
-//     return (
-//         <SidebarProvider>
-//             <div className="flex flex-1">
-//                 <DashboardSidebar user={user} />
-//                 <main className="flex-1 min-w-0">{children}</main>
-//             </div>
-//         </SidebarProvider>
-//     )
-// }
-
-// export default DashboardLayout
-
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Navbar from "@/components/Shared/Navber";
 import DashboardSidebar from "./_components/DashboardSidebar";
@@ -27,7 +7,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getMe();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col">
 
       <SidebarProvider defaultOpen={true}>
         <div className="flex flex-1 w-full relative">

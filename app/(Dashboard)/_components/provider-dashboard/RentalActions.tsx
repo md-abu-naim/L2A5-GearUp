@@ -36,7 +36,7 @@ const RentalActions = ({ id }: Props) => {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="h-8 px-2.5 border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-bold gap-1"
+                        className="h-8 px-2.5 border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-bold gap-1"
                     >
                         <span>Change Status</span>
                         <MoreVertical className="w-3.5 h-3.5 text-slate-500" />
@@ -45,7 +45,7 @@ const RentalActions = ({ id }: Props) => {
 
                 <DropdownMenuContent
                     align="end"
-                    className="w-44 rounded-xl p-1 bg-white border-slate-200"
+                    className="w-44 rounded-xl p-1 border-slate-200"
                 >
 
                     <DropdownMenuItem

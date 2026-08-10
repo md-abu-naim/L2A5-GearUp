@@ -2,7 +2,7 @@ import { Loader2, Sparkles } from "lucide-react";
 
 export default function Loading() {
   return (
-    <div className="min-h-[400px] w-full flex flex-col items-center justify-center p-6 space-y-4 animate-in fade-in duration-300">
+    <div className="min-h-100 w-full flex flex-col items-center justify-center p-6 space-y-4 animate-in fade-in duration-300">
       {/* Animated Icon Container */}
       <div className="relative flex items-center justify-center">
         {/* Outer Pulsing Glow */}
