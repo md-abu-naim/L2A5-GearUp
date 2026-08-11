@@ -66,7 +66,7 @@ export default function LoginForm({ redirectTo }: FormProps) {
     } catch (error: any) {
       toast.error(
         error.message ||
-          "Something went wrong during login."
+        "Something went wrong during login."
       );
     } finally {
       setIsLoading(false);
@@ -106,13 +106,13 @@ export default function LoginForm({ redirectTo }: FormProps) {
       if (result.success) {
         toast.success(
           result.message ||
-            `Demo ${role.toLowerCase()} login successful!`
+          `Demo ${role.toLowerCase()} login successful!`
         );
       }
     } catch (error: any) {
       toast.error(
         error.message ||
-          "Demo login failed. Please try again."
+        "Demo login failed. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -355,6 +355,10 @@ export default function LoginForm({ redirectTo }: FormProps) {
       {/* Google Login */}
       <button
         type="button"
+        onClick={() => {
+          window.location.href =
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
+        }}
         disabled={isLoading}
         className="
           flex
