@@ -21,9 +21,9 @@ export const deleteGear = async (id: string) => {
             })
         }
 
-        return result || [];
+        return result
     } catch (error) {
-        console.error("Error fetching gears:", error);
-        return [];
+        console.error("Error deleting gears:", error);
+        throw error
     }
 }

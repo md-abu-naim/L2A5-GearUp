@@ -15,7 +15,6 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import Image from "next/image";
-
 import { IPayment } from "@/lib/types";
 import { getMyPayments } from "@/app/(Dashboard)/_actions/dashboard/getMyPayments";
 

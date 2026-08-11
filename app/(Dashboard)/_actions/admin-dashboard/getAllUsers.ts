@@ -32,9 +32,9 @@ export const getAllUsers = async ({
         })
         const result = await res.json();
 
-        return result || [];
+        return result
     } catch (error) {
-        console.error("Error fetching gears:", error);
-        return [];
+        console.error("Error fetching Users:", error);
+        throw error;
     }
 }

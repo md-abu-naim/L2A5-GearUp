@@ -17,9 +17,9 @@ export const getMyPayments = async () => {
         
         const payments = await res.json()
 
-        return payments?.data?.payments || [];
+        return payments?.data?.payments
     } catch (error) {
-        console.error("Error fetching gears:", error);
-        return [];
+        console.error("Error fetching payments:", error);
+        throw error
     }
 }
