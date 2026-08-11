@@ -9,9 +9,9 @@ export async function getGearById(id: string) {
         })
         const gear = await res.json()
 
-        return gear?.data?.gear || {};
+        return gear?.data?.gear
     } catch (error) {
         console.error("Error fetching gears:", error);
-        return [];
+        throw error
     }
 }

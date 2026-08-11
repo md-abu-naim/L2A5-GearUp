@@ -21,6 +21,6 @@ export const getAllGears = async () => {
         return gears?.data
     } catch (error) {
         console.error("Error fetching gears:", error);
-        return [];
+        throw error
     }
 }

@@ -11,9 +11,9 @@ export async function getCategories() {
         })
         const categories = await res.json()
 
-        return categories?.data?.categories.slice(0, 6) || [];
+        return categories?.data?.categories.slice(0, 6)
     } catch (error) {
         console.error("Error fetching gears:", error);
-        return [];
+        throw error
     }
 }

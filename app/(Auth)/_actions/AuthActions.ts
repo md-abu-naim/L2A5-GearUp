@@ -46,11 +46,7 @@ export const createUser = async (data: RegisterFormTypes) => {
     return result
 }
 
-export const loginUser = async (data: LoginFormTypes, redirectTo: string) => {
-    const payload = {
-        email: data.email,
-        password: data.password
-    }
+export const loginUser = async (payload: LoginFormTypes, redirectTo: string) => {
 
     const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
         method: "POST",

@@ -5,9 +5,9 @@ export async function getReviews() {
         const res = await fetch(`${process.env.BACKEND_URL}/review`)
         const reviews = await res.json()
 
-        return reviews?.data || [];
+        return reviews?.data
     } catch (error) {
         console.error("Error fetching gears:", error);
-        return [];
+        throw error
     }
 }

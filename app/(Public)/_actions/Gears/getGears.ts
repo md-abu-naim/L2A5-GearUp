@@ -21,9 +21,9 @@ export async function getGears(params?: GearQuery) {
         })
         const gears = await res.json()
 
-        return gears?.data?.gears || [];
+        return gears?.data?.gears
     } catch (error) {
         console.error("Error fetching gears:", error);
-        return [];
+        throw error
     }
 }

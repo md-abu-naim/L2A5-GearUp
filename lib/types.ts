@@ -14,7 +14,7 @@ export type IUSER = {
   };
 };
 
-type UserRole = "CUSTOMER" | "PROVIDER" | "ADMIN";
+export type UserRole = "CUSTOMER" | "PROVIDER" | "ADMIN";
 
 type UserStatus = "ACTIVE" | "SUSPENDED";
 

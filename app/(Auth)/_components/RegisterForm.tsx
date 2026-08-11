@@ -6,8 +6,18 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { toast } from "sonner";
-import { Loader2, UserCheck, Store, Lock, Mail, User } from "lucide-react";
-import { RegisterFormTypes, RegisterValidation } from "../_actions/FormValidation";
+import {
+    Loader2,
+    UserCheck,
+    Store,
+    Lock,
+    Mail,
+    User,
+} from "lucide-react";
+import {
+    RegisterFormTypes,
+    RegisterValidation,
+} from "../_actions/FormValidation";
 import { createUser } from "../_actions/AuthActions";
 
 export default function RegisterForm() {
@@ -32,19 +42,23 @@ export default function RegisterForm() {
 
     const selectedRole = watch("role");
 
-
     const onSubmit = async (data: RegisterFormTypes) => {
         setIsLoading(true);
 
         try {
-            const result = await createUser(data)
+            const result = await createUser(data);
 
             if (result.sucess) {
-                toast.success(result.message || "Account created successfully! Please log in.");
+                toast.success(
+                    result.message ||
+                    "Account created successfully! Please log in."
+                );
             }
-
         } catch (error: any) {
-            toast.error(error.message || "Something went wrong during registration.");
+            toast.error(
+                error.message ||
+                "Something went wrong during registration."
+            );
         } finally {
             setIsLoading(false);
         }
@@ -53,127 +67,146 @@ export default function RegisterForm() {
     return (
         <div className="space-y-6">
             <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">
                     Create an account
                 </h2>
-                <p className="text-sm text-gray-500">
+
+                <p className="text-sm text-muted-foreground">
                     Enter your details below to set up your GearUp account
                 </p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-2">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                         Account Type
                     </label>
+
                     <div className="grid grid-cols-2 gap-3">
                         <button
                             type="button"
                             onClick={() => setValue("role", "CUSTOMER")}
                             className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-medium transition-all ${selectedRole === "CUSTOMER"
-                                ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
-                                : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600"
+                                    ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
+                                    : "border-border bg-background text-muted-foreground hover:bg-muted"
                                 }`}
                         >
                             <UserCheck className="w-4 h-4" />
                             Customer
                         </button>
+
                         <button
                             type="button"
                             onClick={() => setValue("role", "PROVIDER")}
                             className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-medium transition-all ${selectedRole === "PROVIDER"
-                                ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
-                                : "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-600 "
+                                    ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500/20"
+                                    : "border-border bg-background text-muted-foreground hover:bg-muted"
                                 }`}
                         >
                             <Store className="w-4 h-4" />
                             Gear Provider
                         </button>
                     </div>
+
                     {errors.role && (
-                        <p className="text-xs text-red-500 font-medium">{errors.role.message}</p>
+                        <p className="text-xs text-destructive font-medium">
+                            {errors.role.message}
+                        </p>
                     )}
                 </div>
 
-                {/* Full Name */}
                 <div className="space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                         Full Name
                     </label>
+
                     <div className="relative">
-                        <User className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <User className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+
                         <input
                             {...register("name")}
                             type="text"
                             placeholder="Alex Johnson"
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all dark:text-white"
+                            className="w-full pl-10 pr-4 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                     </div>
+
                     {errors.name && (
-                        <p className="text-xs text-red-500 font-medium">{errors.name.message}</p>
+                        <p className="text-xs text-destructive font-medium">
+                            {errors.name.message}
+                        </p>
                     )}
                 </div>
 
-                {/* Email Address */}
                 <div className="space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                         Email Address
                     </label>
+
                     <div className="relative">
-                        <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+
                         <input
                             {...register("email")}
                             type="email"
                             placeholder="alex@example.com"
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border transition-all dark:text-white"
+                            className="w-full pl-10 pr-4 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                     </div>
+
                     {errors.email && (
-                        <p className="text-xs text-red-500 font-medium">{errors.email.message}</p>
+                        <p className="text-xs text-destructive font-medium">
+                            {errors.email.message}
+                        </p>
                     )}
                 </div>
 
-                {/* Password */}
                 <div className="space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                         Password
                     </label>
+
                     <div className="relative">
-                        <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+
                         <input
                             {...register("password")}
                             type="password"
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all dark:text-white"
+                            className="w-full pl-10 pr-4 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                     </div>
+
                     {errors.password && (
-                        <p className="text-xs text-red-500 font-medium">{errors.password.message}</p>
+                        <p className="text-xs text-destructive font-medium">
+                            {errors.password.message}
+                        </p>
                     )}
                 </div>
 
-                {/* Confirm Password */}
                 <div className="space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                         Confirm Password
                     </label>
+
                     <div className="relative">
-                        <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+
                         <input
                             {...register("confirmPassword")}
                             type="password"
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all dark:text-white"
+                            className="w-full pl-10 pr-4 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                     </div>
+
                     {errors.confirmPassword && (
-                        <p className="text-xs text-red-500 font-medium">
+                        <p className="text-xs text-destructive font-medium">
                             {errors.confirmPassword.message}
                         </p>
                     )}
                 </div>
 
-                {/* Submit Button */}
                 <button
                     type="submit"
                     disabled={isLoading}
@@ -190,12 +223,11 @@ export default function RegisterForm() {
                 </button>
             </form>
 
-            {/* Login redirect */}
-            <p className="text-center text-sm text-gray-500">
+            <p className="text-center text-sm text-muted-foreground">
                 Already have an account?{" "}
                 <Link
                     href="/login"
-                    className="font-semibold text-emerald-600 hover:underline"
+                    className="font-semibold text-emerald-600 hover:text-emerald-700 hover:underline transition-colors"
                 >
                     Sign In
                 </Link>
