@@ -122,7 +122,6 @@ export default function LoginForm({ redirectTo }: FormProps) {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <div
